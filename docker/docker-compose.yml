@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  mcp-server:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - SERPAPI_KEY=${SERPAPI_KEY}
+      - MCP_SERVER_PORT=8000
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/mcp/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  rag-assistant:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    depends_on:
+      - mcp-server
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - SERPAPI_KEY=${SERPAPI_KEY}
+      - MCP_SERVER_URL=http://mcp-server:8000
+      - VECTOR_DB_PATH=/app/data/vector_db
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    command: python examples/basic_usage.py
+    restart: "no"
+
+  api-server:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mcp-server
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - SERPAPI_KEY=${SERPAPI_KEY}
+      - MCP_SERVER_URL=http://mcp-server:8000
+      - API_PORT=5000
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    command: python -m src.api.server
+    restart: unless-stopped
+
+volumes:
+  vector_db:
+  logs:
+
+networks:
+  default:
+    name: rag-mcp-network
+    driver: bridge
