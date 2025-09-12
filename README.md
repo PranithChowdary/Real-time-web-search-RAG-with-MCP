@@ -49,15 +49,15 @@ flowchart TD
 ### Clone \& Install
 
 ```bash
-git clone https://github.com/yourusername/rag-mcp-assistant.git
-cd rag-mcp-assistant
+git clone https://github.com/PranithChowdary/Real-time-web-search-RAG-with-MCP.git
+cd Real-time-web-search-RAG-with-MCP
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env
 # Add your API keys to .env
 ```
-
+sample `.env` file can be found at [.env.example](https://github.com/PranithChowdary/Real-time-web-search-RAG-with-MCP/blob/main/.env.example)
 
 ### Docker (Optional)
 
