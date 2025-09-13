@@ -1,4 +1,4 @@
-# RAG-MCP Assistant
+# Real time web search with RAG-MCP Assistant
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/) [![FastAPI](https://img.shields.io/badge/FastAPI-Framework-green)](https://fastapi.tiangolo.com/) [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE) [![Docker](https://img.shields.io/badge/Docker-Ready-blue)](https://www.docker.com/) [![Build Status](https://img.shields.io/github/actions/workflow/status/your-repo/your-project/ci.yml?branch=main)](https://github.com/your-repo/your-project/actions) [![Coverage](https://img.shields.io/codecov/c/github/your-repo/your-project)](https://codecov.io/gh/your-repo/your-project) [![Contributions](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg)](./CONTRIBUTING.md) 
 
